@@ -25,31 +25,17 @@ public class Command extends CommandBase {
 	@Override
 	public int getRequiredPermissionLevel()
 	{
-		return 2;
+		return 0;
 	}
 
 	@Override
-	public boolean isUsernameIndex(String[] args, int index)
-	{
-		return index == 0;
-	}
-
-	@Override
-	public List<?> addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
-	{
-		return par2ArrayOfStr.length == 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, this.getPlayers()) : null;
-	}
-
-	protected String[] getPlayers()
-	{
-		return MinecraftServer.getServer().getAllUsernames();
+	public boolean canCommandSenderUseCommand(ICommandSender sender) {
+		return sender instanceof EntityPlayer;		
 	}
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		if(sender instanceof EntityPlayer) {
-			String playerName = sender.getCommandSenderName();
-			System.out.println(playerName + " wants to check in");
-		}
+		String playerName = sender.getCommandSenderName();
+		System.out.println(playerName + " wants to check in");
 	}
 }
